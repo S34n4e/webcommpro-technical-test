@@ -1,9 +1,9 @@
 <?php
 try {
 
-    $usuario = "root";
-    $contraseña = "";
-    $conn = new PDO('mysql:host=localhost;dbname=mydb', $usuario, $contraseña);
+    $usuario = "epiz_24037000";
+    $contraseña = "jJtAMB0rBA";
+    $conn = new PDO('mysql:host=sql202.epizy.com;dbname=epiz_24037000_database', $usuario, $contraseña);
     $output = array();
     $query = 
     "SELECT User.idUser, User.name, Team.team_name, 
