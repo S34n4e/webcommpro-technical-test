@@ -3,6 +3,9 @@
     <head>
        <!–– ––>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        
+        <link rel="stylesheet" href="style.css">
+        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         
@@ -13,19 +16,43 @@
     </head>
     <body ng-controller="controller" ng-init="displayData()">
         <container class="container">
-        <h1>Title</h1>
-            <button ng-click="search()">Search by: {{search}} </button>
-            <input ng-model="searchText"/>
-        <h2>Table is here:</h2>
-        <table st-table="dataSample" class="table table-striped">
+        <div class="well">
+        <h1 class="text-center">webcomm pro technical test</h1>
+        <h2>Data</h2>
+        
+         <div class="btn-group">
+          <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#filteruser">User</button>
+          <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#filterteam">Team</button>
+          <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#filterhours">Hours</button>
+        </div> 
+        
+        <div id="filteruser" class="collapse">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-filter"></i></span>
+        <input ng-model="searchText.name" class="form-control" placeholder="Filter by user" />
+        </div>
+        
+        
+        <div id="filterteam" class="collapse">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-filter"></i></span>
+        <input ng-model="searchText.team_name" class="form-control" placeholder="Filter by team" />
+        </div>
+        
+        <div id="filterhours" class="collapse">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-filter"></i></span>
+        <input ng-model="searchText.hours_played" class="form-control" placeholder="Filter by hours" />
+        </div>
+        
+        
+        <div class="well">
+        <table st-table="dataSample" class="table table-striped table-hover">
 	    <thead class="thread">
 	      <tr class="bg-primary">
-		     <th ng-click="sortData('name')">
-                    User
-                    <span class="glyphicon glyphicon-sort"></span>
+            <th class="cursor-pointer" ng-click="sortData('name')">
+             User
+                <span class="glyphicon glyphicon-sort"></span>
              </th>
 		     <th>Team</th>
-             <th ng-click="sortData('hours_played')" >        
+             <th class="cursor-pointer" ng-click="sortData('hours_played')" >        
              Hours
              <span class="glyphicon glyphicon-sort"></span>
              </th>
@@ -38,17 +65,28 @@
             <th>{{x.team_name}}</th>
             <th>{{x.hours_played}}</th>
             <th>
-                <button type="button" class="btn btn-default btn-sm" ng-click="displayAllData(x.idUser);" >
+                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal" ng-click="displayAllData(x.idUser);" >
                 <span class="glyphicon glyphicon-stats"></span> MORE
                 </button>
               </th>
        	</tr>
 	    </tbody>
         </table>
+        </div>
     
-    <table st-table="idUser" class="table table-striped">
+    <!-- Modal content-->
+    <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Details</h4>
+        </div>
+        <div class="modal-body">
+          <table st-table="idUser" class="table table-striped table-hover">
 	    <thead>
 	      <tr>
+             <th>User</th>
 		     <th>Game</th>
 		     <th>Category</th>
              <th>Hours</th>
@@ -56,16 +94,22 @@
     	</thead>
     	<tbody>
       	<tr ng-repeat="x in idUser">
+            <th>{{x.un}}</th>
       		<th>{{x.gn}}</th>
             <th>{{x.main_category}}</th>
             <th>{{x.hours_played}}</th>
        	</tr>
 	    </tbody>
     </table>
-    
-    <p>Aqui el idUser: {{idUser}}</p>
-    <p>Aqui el JSON: {{dataSample}}</p>
-    <p>Aqui el filtro: {{dataFiltered}} </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+    </div>
     </container>
     </body>
 </html>
